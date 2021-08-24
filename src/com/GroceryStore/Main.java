@@ -18,7 +18,6 @@ public class Main {
         Store store = new Store("Fruite Stande");
         store.addBeverageToInventory(new Beverage("Orange Juice", 4_99, "d-002", "Pulp", "2 qts"));
         store.addFruitToInventory(new Fruit("Orange", 550, "p-002", "Bag of Green Orange", 5));
-        store.addToInventory(new Product("Apple", 89, "p-001", "Red Apple"));
         store.addToInventory("Orange Juice", 4_99, "b-001", "Pulp");
         store.addToInventory("Milk", 4_99, "b-002", "Whole Milk", "1 gl");
         store.addToInventory("Apple", 89, "p-001", "Red Apple", 4);

@@ -15,7 +15,7 @@ public class Store {
         this.name = name;
     }
 
-    public void addToInventory(Product product) {
+    private void addToInventory(Product product) {
         inventory.add(product);
         inventory.sort(Product::compareTo);
     }
