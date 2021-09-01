@@ -1,6 +1,7 @@
 package com.GroceryStore.console;
 
 import com.GroceryStore.Products.Beverage;
+import com.GroceryStore.Products.Fruit;
 import com.GroceryStore.Products.Product;
 import com.GroceryStore.Store;
 
@@ -38,11 +39,11 @@ public class UI {
         this.store = store;
         welcome(store.getName());
         displayOptions("What do you want to do?", MENU);
-        int choice = getInt(1, 5, "Enter selection between 1 and 5:");
+        int choice = getInt("Enter selection between 1 and 5:", 1, 5);
         handleMenuSelection(choice);
     }
 
-    public static int getInt(int min, int max, String prompt) {
+    public static int getInt(String prompt, int min, int max) {
         int option = min - 1;
         do {
             System.out.println(prompt);
@@ -111,7 +112,7 @@ public class UI {
                 // TODO: implement the following method use getBeverageDetails as reference
                 break;
 //            case 2:
-//            newProduct = getFruitDetails();
+            newProduct = getFruitDetails();
             default:
                 System.out.println("error bad type");
                 newProduct = null;
@@ -122,13 +123,25 @@ public class UI {
 
     private static Beverage getBeverageDetails() {
         return new Beverage(
-                getString("Beverage Name", true),
-                getInt(1, Integer.MAX_VALUE, "Price?"),
-                getString("Id: ", true),
-                getString("Description: ", false),
-                getInt(1, Integer.MAX_VALUE, "Volume"),
-                getInt(0, Beverage.UNITS.length - 1, "Volume Unit")
+                getString("Enter Beverage Name", true),
+                getInt("Enter Price?", 0, Integer.MAX_VALUE),
+                getString("Enter Id: ", true),
+                getString("Enter Description: ", false),
+                getInt("Enter Volume", 1, Integer.MAX_VALUE),
+                getInt("Enter Volume Unit", 1, Beverage.UNITS.length - 1)
         );
+    }
+
+    private static Fruit getFruitDetails() {
+
+        return new Fruit(
+                getString("Enter Fruit name", true),
+                getInt("Enter price", 0, Integer.MAX_VALUE),
+                getString("Enter ID", true),
+                getString("Enter Description", true),
+                getInt("Enter hardness 1-10", 1, 10)
+        );
+
     }
 
     private void displayProducts() {
