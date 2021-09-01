@@ -24,6 +24,10 @@ public class UI {
             "2. Fruit",
     };
 
+    public UI(Store store){
+        this.store = store;
+    }
+
     public static void welcome(String name) {
         System.out.println("Welcome to " + name + "!");
     }
@@ -35,8 +39,7 @@ public class UI {
         }
     }
 
-    public boolean start(Store store) {
-        this.store = store;
+    public boolean start() {
         welcome(store.getName());
         displayOptions("What do you want to do?", MENU);
         int choice = getInt("Enter selection between 1 and 5:", 1, 5);
