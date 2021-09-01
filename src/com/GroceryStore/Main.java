@@ -6,6 +6,5 @@ import com.GroceryStore.Products.Product;
 
 public class Main {
     public static void main(String[] args) {
-
     }
 }

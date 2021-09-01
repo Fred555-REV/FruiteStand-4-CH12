@@ -35,12 +35,12 @@ public class UI {
         }
     }
 
-    public void start(Store store) {
+    public boolean start(Store store) {
         this.store = store;
         welcome(store.getName());
         displayOptions("What do you want to do?", MENU);
         int choice = getInt("Enter selection between 1 and 5:", 1, 5);
-        handleMenuSelection(choice);
+        return handleMenuSelection(choice);
     }
 
     public static int getInt(String prompt, int min, int max) {
@@ -79,7 +79,7 @@ public class UI {
         return input;
     }
 
-    public void handleMenuSelection(int choice) {
+    public boolean handleMenuSelection(int choice) {
         switch (choice) {
             case 1:
                 addProduct();
@@ -94,25 +94,26 @@ public class UI {
                 sellProduct();
                 break;
             case 5:
-                System.exit(0);
-                break;
+                return false;
             default:
                 System.out.println("invalid number received");
                 break;
         }
+        return true;
     }
 
     private void addProduct() {
         displayOptions("What kind of product?", PRODUCT_TYPES);
-        int choice = getInt(1, PRODUCT_TYPES.length, "enter a number");
+        int choice = getInt("enter a number", 1, PRODUCT_TYPES.length);
         Product newProduct;
         switch (choice) {
             case 1:
                 newProduct = getBeverageDetails();
                 // TODO: implement the following method use getBeverageDetails as reference
                 break;
-//            case 2:
-            newProduct = getFruitDetails();
+            case 2:
+                newProduct = getFruitDetails();
+                break;
             default:
                 System.out.println("error bad type");
                 newProduct = null;
