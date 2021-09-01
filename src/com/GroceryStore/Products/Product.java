@@ -4,11 +4,9 @@ import java.text.NumberFormat;
 
 @SuppressWarnings("ALL")
 public class Product extends Object {
-    private String type;
-    private String supplier;
     private String name;
     private int price;
-    private String id;
+    public final String id;
     private String description;
 
     public Product(String name, int price, String id, String description) {
@@ -24,7 +22,12 @@ public class Product extends Object {
 
     @Override
     public String toString() {
-        return String.format("|id: %s\t|name: %s\t|price: %s\t|description: %s\t", id, name, getDisplayPrice(), description);
+        String output = "| id: " + id + " | name: " + name + " | price: " + getDisplayPrice() + " | ";
+        return output;
+    }
+
+    public int getPrice() {
+        return price;
     }
 
     public int compareTo(Product compareProduct) {

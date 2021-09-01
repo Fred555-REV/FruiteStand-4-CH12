@@ -1,6 +1,7 @@
 package com.GroceryStore;
 
 import com.GroceryStore.Products.*;
+import com.Util.Formatter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ public class Store {
         this.name = name;
     }
 
-    private void addToInventory(Product product) {
+    public void addToInventory(Product product) {
         inventory.add(product);
         inventory.sort(Product::compareTo);
     }
@@ -25,13 +26,13 @@ public class Store {
         addToInventory(beverage);
     }
 
-    public void addToInventory(String name, int price, String id, String description) {
-        Beverage beverage = new Beverage(name, price, id, description);
+    public void addToInventory(String name, int price, String id, String description, int volume, String volumeUnit) {
+        Beverage beverage = new Beverage(name, price, id, description, volume, volumeUnit);
         addToInventory(beverage);
     }
 
-    public void addToInventory(String name, int price, String id, String description, String volume) {
-        Beverage beverage = new Beverage(name, price, id, description, volume);
+    public void addToInventory(String name, int price, String id, String description, int volume, int volumeUnit) {
+        Beverage beverage = new Beverage(name, price, id, description, volume, volumeUnit);
         addToInventory(beverage);
     }
 
@@ -67,4 +68,33 @@ public class Store {
     }
 
 
+    public void throwAway(Product product) {
+        inventory.remove(product);
+    }
+
+    public void purchase(Product product) {
+        balance += product.getPrice();
+        throwAway(product);
+    }
+
+    public String getInventory() {
+        String output = "";
+        for (Product prod : inventory) {
+            output += prod + "\n";
+        }
+        return output;
+    }
+
+    public String getBalance() {return Formatter.getDisplayPrice(balance);}
+
+    public String getName() {return name;}
+
+    public Product getProduct (String id) {
+        for (Product product : inventory) {
+            if (product.id.equals(id)) {
+                return product;
+            }
+        }
+        return null;
+    }
 }

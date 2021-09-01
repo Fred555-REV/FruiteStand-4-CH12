@@ -5,22 +5,24 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Beverage extends Product {
-    //    private final static List<String> volumes = new ArrayList();
-//    private int volume;
-//    private String volumeUnit
-    private String volume;  //Because volume will not be changed string can store volume
+    public final static String[] UNITS = new String[]{"Gal", "oz", "litre", "ml", "pint", "quart"};
+    private int volume;
+    private String volumeUnit;
 
-    public Beverage(String name, int price, String id, String description, String volume) {
+
+    public Beverage(String name, int price, String id, String description, int volume, String volumeUnit) {
         super(name, price, id, description);
         this.volume = volume;
+        this.volumeUnit = volumeUnit;
     }
 
-    public Beverage(String name, int price, String id, String description) {
+    public Beverage(String name, int price, String id, String description, int volume, int volumeUnit) {
         super(name, price, id, description);
+        this.volume = volume;
+        this.volumeUnit = UNITS[volumeUnit];
     }
 
     public String toString() {
-        return String.format("%s|volume: %s\t", super.toString(), volume);
+        return super.toString() + "Volume: " + volume + " " + volumeUnit + " | ";
     }
-
 }
