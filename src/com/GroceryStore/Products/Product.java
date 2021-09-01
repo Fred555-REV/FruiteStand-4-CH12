@@ -3,7 +3,7 @@ package com.GroceryStore.Products;
 import java.text.NumberFormat;
 
 @SuppressWarnings("ALL")
-public class Product extends Object {
+public abstract class Product extends Object {
     private String name;
     private int price;
     public final String id;
