@@ -5,6 +5,8 @@ import com.GroceryStore.Products.Fruit;
 import com.GroceryStore.Products.Product;
 import com.GroceryStore.Store;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 //TODO make the ui system loop until it exits
@@ -12,19 +14,19 @@ import java.util.Scanner;
 public class UI {
     private Store store;
     private static Scanner scanner = new Scanner(System.in);
-    private final static String[] MENU = new String[]{
+    private final static List<String> MENU = List.of(
             "1. add product to inventory",
             "2. throw away a product",
             "3. list products available",
             "4. sell a product",
             "5. quit"
-    };
-    private final static String[] PRODUCT_TYPES = new String[]{
+    );
+    private final static List<String> PRODUCT_TYPES = List.of(
             "1. Beverage",
-            "2. Fruit",
-    };
+            "2. Fruit"
+    );
 
-    public UI(Store store){
+    public UI(Store store) {
         this.store = store;
     }
 
@@ -32,7 +34,7 @@ public class UI {
         System.out.println("Welcome to " + name + "!");
     }
 
-    public static void displayOptions(String prompt, String[] options) {
+    public static void displayOptions(String prompt, List<String> options) {
         System.out.println(prompt);
         for (String option : options) {
             System.out.println(option);
@@ -107,7 +109,7 @@ public class UI {
 
     private void addProduct() {
         displayOptions("What kind of product?", PRODUCT_TYPES);
-        int choice = getInt("enter a number", 1, PRODUCT_TYPES.length);
+        int choice = getInt("enter a number", 1, PRODUCT_TYPES.size());
         Product newProduct;
         switch (choice) {
             case 1:
