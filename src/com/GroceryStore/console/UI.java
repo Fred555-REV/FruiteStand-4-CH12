@@ -14,24 +14,27 @@ import java.util.Scanner;
 public class UI {
     private Store store;
     private static Scanner scanner = new Scanner(System.in);
-    private final static List<String> MENU = List.of(
-            "1. add product to inventory",
-            "2. throw away a product",
-            "3. list products available",
-            "4. sell a product",
-            "5. quit"
-    );
-    private final static List<String> PRODUCT_TYPES = List.of(
-            "1. Beverage",
-            "2. Fruit"
-    );
+    private Language lang;
 
     public UI(Store store) {
         this.store = store;
+        setLang();
     }
 
-    public static void welcome(String name) {
-        System.out.println("Welcome to " + name + "!");
+    private void setLang() {
+        int choice = getInt("(1)English\n(2)Español", 1, 2);
+        switch (choice) {
+            case 1:
+                lang = new English();
+                break;
+            case 2:
+                lang = new Spanish();
+                break;
+        }
+    }
+
+    public void welcome(String name) {
+        System.out.println(lang.WELCOME() + name + "!");
     }
 
     public static void displayOptions(String prompt, List<String> options) {
@@ -43,12 +46,12 @@ public class UI {
 
     public boolean start() {
         welcome(store.getName());
-        displayOptions("What do you want to do?", MENU);
-        int choice = getInt("Enter selection between 1 and 5:", 1, 5);
+        displayOptions(lang.MENU_PROMPT(), lang.MENU());
+        int choice = getInt(lang.SELECT_PROMPT(), 1, 5);
         return handleMenuSelection(choice);
     }
 
-    public static int getInt(String prompt, int min, int max) {
+    public int getInt(String prompt, int min, int max) {
         int option = min - 1;
         do {
             System.out.println(prompt);
@@ -56,9 +59,9 @@ public class UI {
             try {
                 option = Integer.parseInt(input);
             } catch (NumberFormatException err) {
-                System.out.println("Invalid number");
+                System.out.println(lang.ERROR_MSGS().get(1));
             } catch (Exception err) {
-                System.out.println("general exception");
+                System.out.println(lang.ERROR_MSGS().get(2));
             }
 //            finally {
 //                System.out.println("HI there");
@@ -68,14 +71,14 @@ public class UI {
         return option;
     }
 
-    public static String getString(String prompt, boolean isRequired) {
+    public String getString(String prompt, boolean isRequired) {
         String input;
 
         do {
             System.out.println(prompt);
             input = scanner.nextLine();
             if (isRequired && input.length() == 0) {
-                System.out.println("Must enter something");
+                System.out.println(lang.ERROR_MSGS().get(3));
                 continue;
             }
             break;
@@ -101,15 +104,15 @@ public class UI {
             case 5:
                 return false;
             default:
-                System.out.println("invalid number received");
+                System.out.println(lang.ERROR_MSGS().get(1));
                 break;
         }
         return true;
     }
 
     private void addProduct() {
-        displayOptions("What kind of product?", PRODUCT_TYPES);
-        int choice = getInt("enter a number", 1, PRODUCT_TYPES.size());
+        displayOptions(lang.PRODUCT_PROMPT(), lang.PRODUCT_TYPES());
+        int choice = getInt(lang.SELECT_PROMPT(), 1, lang.PRODUCT_TYPES().size());
         Product newProduct;
         switch (choice) {
             case 1:
@@ -120,32 +123,32 @@ public class UI {
                 newProduct = getFruitDetails();
                 break;
             default:
-                System.out.println("error bad type");
+                System.out.println(lang.ERROR_MSGS().get(1));
                 newProduct = null;
                 break;
         }
         store.addToInventory(newProduct);
     }
 
-    private static Beverage getBeverageDetails() {
+    private Beverage getBeverageDetails() {
         return new Beverage(
-                getString("Enter Beverage Name", true),
-                getInt("Enter Price?", 0, Integer.MAX_VALUE),
-                getString("Enter Id: ", true),
-                getString("Enter Description: ", false),
-                getInt("Enter Volume", 1, Integer.MAX_VALUE),
-                getInt("Enter Volume Unit", 1, Beverage.UNITS.length - 1)
+                getString(lang.ENTER() + lang.PRODUCT_FIELDS().get(0), true),
+                getInt(lang.ENTER() + lang.PRODUCT_FIELDS().get(1), 0, Integer.MAX_VALUE),
+                getString(lang.ENTER() + lang.PRODUCT_FIELDS().get(2), true),
+                getString(lang.ENTER() + lang.PRODUCT_FIELDS().get(3), false),
+                getInt(lang.ENTER() + lang.BEVERAGE_SPEC_FIELDS().get(0), 1, Integer.MAX_VALUE),
+                getInt(lang.ENTER() + lang.BEVERAGE_SPEC_FIELDS().get(1), 1, Beverage.UNITS.length - 1)
         );
     }
 
-    private static Fruit getFruitDetails() {
+    private Fruit getFruitDetails() {
 
         return new Fruit(
-                getString("Enter Fruit name", true),
-                getInt("Enter price", 0, Integer.MAX_VALUE),
-                getString("Enter ID", true),
-                getString("Enter Description", true),
-                getInt("Enter hardness 1-10", 1, 10)
+                getString(lang.ENTER() + lang.PRODUCT_FIELDS().get(0), true),
+                getInt(lang.ENTER() + lang.PRODUCT_FIELDS().get(1), 0, Integer.MAX_VALUE),
+                getString(lang.ENTER() + lang.PRODUCT_FIELDS().get(2), true),
+                getString(lang.ENTER() + lang.PRODUCT_FIELDS().get(3), true),
+                getInt(lang.ENTER() + lang.FRUIT_SPEC_FIELDS().get(0), 1, 10)
         );
 
     }
@@ -162,18 +165,18 @@ public class UI {
 
 
     private void throwAwayProduct() {
-        Product prod = selectProduct("Which product id to throw away? press enter to cancel");
+        Product prod = selectProduct(lang.SELECT_PROMPT());
         if (prod == null) {
-            System.out.println("404 - Product not Found");
+            System.out.println(lang.ERROR_MSGS().get(4));
             return;
         }
         store.throwAway(prod);
     }
 
     private void sellProduct() {
-        Product prod = selectProduct("Which product id to purchase? press enter to cancel");
+        Product prod = selectProduct(lang.SELECT_PROMPT());
         if (prod == null) {
-            System.out.println("404 - Product not Found");
+            System.out.println(lang.ERROR_MSGS().get(4));
             return;
         }
         store.purchase(prod);
