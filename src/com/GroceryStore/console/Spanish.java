@@ -79,6 +79,6 @@ public class Spanish implements Language {
 
     @Override
     public String ENTER() {
-        return "presione la tecla enter";
+        return "Entre ";
     }
 }

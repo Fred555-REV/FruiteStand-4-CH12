@@ -165,7 +165,7 @@ public class UI {
 
 
     private void throwAwayProduct() {
-        Product prod = selectProduct(lang.SELECT_PROMPT());
+        Product prod = selectProduct(lang.SELECT_PROMPT()+lang.CANCEL_PROMPT());
         if (prod == null) {
             System.out.println(lang.ERROR_MSGS().get(4));
             return;
@@ -174,7 +174,7 @@ public class UI {
     }
 
     private void sellProduct() {
-        Product prod = selectProduct(lang.SELECT_PROMPT());
+        Product prod = selectProduct(lang.SELECT_PROMPT()+lang.CANCEL_PROMPT());
         if (prod == null) {
             System.out.println(lang.ERROR_MSGS().get(4));
             return;
