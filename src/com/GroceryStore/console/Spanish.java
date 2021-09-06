@@ -4,62 +4,76 @@ import java.util.List;
 
 public class Spanish implements Language {
     @Override
-    public List<String> MENU() {
-        return null;
+    public String[] MENU() {
+        return new String[]{
+                "1. agregar producto al inventario",
+                "2. desechar un producto",
+                "3. enumerar los productos disponibles",
+                "4. vender un producto",
+                "5. salir",
+                "6. cambiar idioma"
+        };
     }
 
     @Override
-    public List<String> PRODUCT_TYPES() {
-        return null;
+    public String[] PRODUCT_TYPES() {
+        return new String[]{
+                "1. Bebida",
+                "2. Fruta",
+        };
     }
 
     @Override
     public String WELCOME() {
-        return null;
+        return "Bienvenido a ";
     }
 
     @Override
     public String MENU_PROMPT() {
-        return null;
+        return "¿Qué queres hacer?";
     }
 
     @Override
     public String SELECT_PROMPT() {
-        return null;
-    }
-
-    @Override
-    public String CANCEL_PROMPT() {
-        return null;
+        return "Ingrese selección:";
     }
 
     @Override
     public String PRODUCT_PROMPT() {
-        return null;
+        return "¿Qué tipo de producto?";
+    }
+
+    @Override
+    public String CANCEL_PROMPT() {
+        return "presione enter para cancelar";
     }
 
     @Override
     public List<String> ERROR_MSGS() {
-        return null;
+        return List.of(
+                "OK",
+                "Número invalido",
+                "excepción general",
+                "Debe ingresar algo",
+                "404 - Producto no encontrado");
     }
 
     @Override
     public List<String> PRODUCT_FIELDS() {
-        return null;
+        return List.of("Nombre:", "precio:", "id:", "descripción:");
     }
 
     @Override
     public List<String> FRUIT_SPEC_FIELDS() {
-        return null;
+        return List.of(
+                "Volumen:", "Código de unidad de volumen:"
+        );
     }
 
     @Override
     public List<String> BEVERAGE_SPEC_FIELDS() {
-        return null;
-    }
-
-    @Override
-    public String ENTER() {
-        return null;
+        return List.of(
+                "Nivel de dureza:", "Es orgánico:"
+        };
     }
 }
