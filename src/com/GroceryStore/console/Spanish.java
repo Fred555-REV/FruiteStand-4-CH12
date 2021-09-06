@@ -4,23 +4,23 @@ import java.util.List;
 
 public class Spanish implements Language {
     @Override
-    public String[] MENU() {
-        return new String[]{
+    public List<String> MENU() {
+        return List.of(
                 "1. agregar producto al inventario",
                 "2. desechar un producto",
                 "3. enumerar los productos disponibles",
                 "4. vender un producto",
                 "5. salir",
                 "6. cambiar idioma"
-        };
+        );
     }
 
     @Override
-    public String[] PRODUCT_TYPES() {
-        return new String[]{
+    public List<String> PRODUCT_TYPES() {
+        return List.of(
                 "1. Bebida",
-                "2. Fruta",
-        };
+                "2. Fruta"
+        );
     }
 
     @Override
@@ -73,7 +73,12 @@ public class Spanish implements Language {
     @Override
     public List<String> BEVERAGE_SPEC_FIELDS() {
         return List.of(
-                "Nivel de dureza:", "Es orgánico:"
-        };
+                "Nivel de dureza:",
+                "Es orgánico:");
+    }
+
+    @Override
+    public String ENTER() {
+        return "presione la tecla enter";
     }
 }

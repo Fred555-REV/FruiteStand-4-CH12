@@ -86,6 +86,6 @@ public class English implements Language {
 
     @Override
     public String ENTER() {
-        return null;
+        return "Enter";
     }
 }
