@@ -1,13 +1,16 @@
 package com.company;
 
 import com.GroceryStore.Store;
-import com.GroceryStore.console.UI;
+import com.GroceryStore.konsole.Spanish;
+import com.GroceryStore.konsole.UI;
+import com.GroceryStore.konsole.English;
 
 public class Main {
 
     public static void main(String[] args) {
-        UI ui = new UI(new Store("Fruite Stand"));
-        while (ui.start());
-
+//        UI ui = new English(new Store("Fruite Stand"));
+        Store store = new Store("Fred's Store");
+        //TODO FINISH START
+//        store.ui.start();
     }
 }

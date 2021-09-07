@@ -1,6 +1,10 @@
 package com.GroceryStore;
 
 import com.GroceryStore.Products.*;
+import com.GroceryStore.konsole.English;
+import com.GroceryStore.konsole.Spanish;
+import com.GroceryStore.konsole.UI;
+import com.GroceryStore.konsole.UserInterface;
 import com.Util.Formatter;
 
 import java.util.ArrayList;
@@ -11,9 +15,23 @@ public class Store {
     private List<Product> inventory = new ArrayList();
     private int balance = 500_00;
     private String name;
+    public UserInterface ui;
 
     public Store(String name) {
         this.name = name;
+        setLang();
+    }
+
+    private void setLang() {
+        int choice = UserInterface.getInt("Choose Language", 1, 2, "Invalid Number / Número invalido");
+        switch (choice){
+            case 1:
+                ui = new English(this);
+                break;
+            case 2:
+                ui = new Spanish(this);
+                break;
+        }
     }
 
     public void addToInventory(Product product) {
@@ -85,11 +103,15 @@ public class Store {
         return output;
     }
 
-    public String getBalance() {return Formatter.getDisplayPrice(balance);}
+    public String getBalance() {
+        return Formatter.getDisplayPrice(balance);
+    }
 
-    public String getName() {return name;}
+    public String getName() {
+        return name;
+    }
 
-    public Product getProduct (String id) {
+    public Product getProduct(String id) {
         for (Product product : inventory) {
             if (product.id.equals(id)) {
                 return product;
