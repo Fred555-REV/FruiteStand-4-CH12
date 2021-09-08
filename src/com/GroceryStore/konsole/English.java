@@ -7,7 +7,7 @@ import com.GroceryStore.Store;
 
 import java.util.List;
 
-public class English extends UI implements UserInterface {
+public class English extends UI {
 
     public English(Store store) {
         super(store);
@@ -16,7 +16,8 @@ public class English extends UI implements UserInterface {
                 "2. throw away a product",
                 "3. list products available",
                 "4. sell a product",
-                "5. quit"
+                "5. quit",
+                "6. change language"
         );
         PRODUCT_TYPES = List.of(
                 "1. Beverage",

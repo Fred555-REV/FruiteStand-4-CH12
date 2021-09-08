@@ -8,7 +8,7 @@ import com.GroceryStore.Store;
 import java.util.List;
 import java.util.Scanner;
 
-public abstract class UI {
+public abstract class UI implements UserInterface {
     public List<String> MENU;
     public List<String> PRODUCT_TYPES;
     public String WELCOME;
@@ -39,14 +39,16 @@ public abstract class UI {
         }
     }
 
-    public boolean start() {
+    public void start() {
         welcome(store.getName());
+        while (true) {
         displayOptions(MENU_PROMPT, MENU);
-        int choice = getInt(SELECT_PROMPT, 1, 5,ERROR_MSGS.get(1));
-        return handleMenuSelection(choice);
+            int choice = getInt(SELECT_PROMPT, 1, 6, ERROR_MSGS.get(1));
+            handleMenuSelection(choice);
+        }
     }
 
-    public static int getInt(String prompt, int min, int max,String errorMsg) {
+    public static int getInt(String prompt, int min, int max, String errorMsg) {
         int option = min - 1;
         do {
             System.out.println(prompt);
@@ -92,6 +94,8 @@ public abstract class UI {
                 break;
             case 5:
                 return false;
+            case 6:
+                store.setLang();
             default:
                 System.out.println(ERROR_MSGS.get(1));
                 break;
@@ -101,7 +105,7 @@ public abstract class UI {
 
     protected void addProduct() {
         displayOptions(PRODUCT_PROMPT, PRODUCT_TYPES);
-        int choice = getInt(SELECT_PROMPT, 1, PRODUCT_TYPES.size(),ERROR_MSGS.get(1));
+        int choice = getInt(SELECT_PROMPT, 1, PRODUCT_TYPES.size(), ERROR_MSGS.get(1));
         Product newProduct;
         switch (choice) {
             case 1:
@@ -122,11 +126,11 @@ public abstract class UI {
     protected Beverage getBeverageDetails() {
         return new Beverage(
                 getString(ENTER + PRODUCT_FIELDS.get(0), true),
-                getInt(ENTER + PRODUCT_FIELDS.get(1), 0, Integer.MAX_VALUE,ERROR_MSGS.get(1)),
+                getInt(ENTER + PRODUCT_FIELDS.get(1), 0, Integer.MAX_VALUE, ERROR_MSGS.get(1)),
                 getString(ENTER + PRODUCT_FIELDS.get(2), true),
                 getString(ENTER + PRODUCT_FIELDS.get(3), false),
-                getInt(ENTER + BEVERAGE_SPEC_FIELDS.get(0), 1, Integer.MAX_VALUE,ERROR_MSGS.get(1)),
-                getInt(ENTER + BEVERAGE_SPEC_FIELDS.get(1), 1, Beverage.UNITS.length - 1,ERROR_MSGS.get(1))
+                getInt(ENTER + BEVERAGE_SPEC_FIELDS.get(0), 1, Integer.MAX_VALUE, ERROR_MSGS.get(1)),
+                getInt(ENTER + BEVERAGE_SPEC_FIELDS.get(1), 1, Beverage.UNITS.length - 1, ERROR_MSGS.get(1))
         );
     }
 
@@ -134,10 +138,10 @@ public abstract class UI {
 
         return new Fruit(
                 getString(ENTER + PRODUCT_FIELDS.get(0), true),
-                getInt(ENTER + PRODUCT_FIELDS.get(1), 0, Integer.MAX_VALUE,ERROR_MSGS.get(1)),
+                getInt(ENTER + PRODUCT_FIELDS.get(1), 0, Integer.MAX_VALUE, ERROR_MSGS.get(1)),
                 getString(ENTER + PRODUCT_FIELDS.get(2), true),
                 getString(ENTER + PRODUCT_FIELDS.get(3), true),
-                getInt(ENTER + FRUIT_SPEC_FIELDS.get(0), 1, 10,ERROR_MSGS.get(1))
+                getInt(ENTER + FRUIT_SPEC_FIELDS.get(0), 1, 10, ERROR_MSGS.get(1))
         );
 
     }

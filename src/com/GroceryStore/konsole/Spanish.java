@@ -4,7 +4,7 @@ import com.GroceryStore.Store;
 
 import java.util.List;
 
-public class Spanish extends UI implements UserInterface {
+public class Spanish extends UI {
 
     public Spanish(Store store) {
         super(store);

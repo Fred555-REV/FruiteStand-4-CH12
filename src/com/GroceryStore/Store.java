@@ -20,10 +20,11 @@ public class Store {
     public Store(String name) {
         this.name = name;
         setLang();
+        ui.start();
     }
 
-    private void setLang() {
-        int choice = UserInterface.getInt("Choose Language", 1, 2, "Invalid Number / Número invalido");
+    public void setLang() {
+        int choice = UserInterface.getInt("(1) English\n(2) Español", 1, 2, "Invalid Number / Número invalido");
         switch (choice){
             case 1:
                 ui = new English(this);
