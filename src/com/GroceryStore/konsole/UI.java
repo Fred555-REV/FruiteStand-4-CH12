@@ -9,23 +9,47 @@ import java.util.List;
 import java.util.Scanner;
 
 public abstract class UI implements UserInterface {
-    public List<String> MENU;
-    public List<String> PRODUCT_TYPES;
-    public String WELCOME;
-    public String MENU_PROMPT;
-    public String SELECT_PROMPT;
-    public String PRODUCT_PROMPT;
-    public String CANCEL_PROMPT;
-    public List<String> ERROR_MSGS;
-    public List<String> PRODUCT_FIELDS;
-    public List<String> FRUIT_SPEC_FIELDS;
-    public List<String> BEVERAGE_SPEC_FIELDS;
-    public String ENTER;
-    public Store store;
+    protected final List<String> MENU;
+    protected final List<String> PRODUCT_TYPES;
+    protected final String WELCOME;
+    protected final String MENU_PROMPT;
+    protected final String SELECT_PROMPT;
+    protected final String PRODUCT_PROMPT;
+    protected final String CANCEL_PROMPT;
+    protected final List<String> ERROR_MSGS;
+    protected final List<String> PRODUCT_FIELDS;
+    protected final List<String> FRUIT_SPEC_FIELDS;
+    protected final List<String> BEVERAGE_SPEC_FIELDS;
+    protected final String ENTER;
+    protected final Store store;
     protected static Scanner scanner = new Scanner(System.in);
 
-    public UI(Store store) {
+    public UI(Store store, List<String> MENU,
+              List<String> PRODUCT_TYPES,
+              String WELCOME,
+              String MENU_PROMPT,
+              String SELECT_PROMPT,
+              String PRODUCT_PROMPT,
+              String CANCEL_PROMPT,
+              List<String> ERROR_MSGS,
+              List<String> PRODUCT_FIELDS,
+              List<String> FRUIT_SPEC_FIELDS,
+              List<String> BEVERAGE_SPEC_FIELDS,
+              String ENTER) {
         this.store = store;
+        this.MENU = MENU;
+        this.PRODUCT_TYPES = PRODUCT_TYPES;
+        this.WELCOME = WELCOME;
+        this.MENU_PROMPT = MENU_PROMPT;
+        this.SELECT_PROMPT = SELECT_PROMPT;
+        this.PRODUCT_PROMPT = PRODUCT_PROMPT;
+        this.CANCEL_PROMPT = CANCEL_PROMPT;
+        this.ERROR_MSGS = ERROR_MSGS;
+        this.PRODUCT_FIELDS = PRODUCT_FIELDS;
+        this.FRUIT_SPEC_FIELDS = FRUIT_SPEC_FIELDS;
+        this.BEVERAGE_SPEC_FIELDS = BEVERAGE_SPEC_FIELDS;
+        this.ENTER = ENTER;
+
     }
 
     public void welcome(String name) {
@@ -42,7 +66,7 @@ public abstract class UI implements UserInterface {
     public void start() {
         welcome(store.getName());
         while (true) {
-        displayOptions(MENU_PROMPT, MENU);
+            displayOptions(MENU_PROMPT, MENU);
             int choice = getInt(SELECT_PROMPT, 1, 6, ERROR_MSGS.get(1));
             handleMenuSelection(choice);
         }
